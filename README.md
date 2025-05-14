@@ -124,3 +124,11 @@ Entre os principais resultados esperados, destacam-se:
 - Integração com outros sistemas de automação residencial (smart home).
 - Aplicação do modelo em condomínios, com suporte a múltiplas unidades habitacionais.
 - Melhoria na precisão dos alertas utilizando aprendizado de máquina para identificar padrões específicos de uso.
+
+## 10. Conclusão
+
+Este projeto propõe o desenvolvimento de um sistema de monitoramento de fluxo d'água com foco na detecção precoce de vazamentos na entrada da rede de fornecimento de residências. Utilizando um sensor de vazão integrado ao microcontrolador ESP32 e conectado à plataforma Zabbix, o sistema visa oferecer monitoramento em tempo real, emissão de alertas automáticos e, eventualmente, a capacidade de interromper remotamente o fornecimento de água, prevenindo desperdícios e prejuízos.
+
+A importância do projeto se destaca em contextos onde o acesso imediato à residência não é possível, como casas de veraneio, e onde o desperdício de água pode resultar em custos elevados e danos ao meio ambiente. Ao automatizar o processo de detecção de vazamentos, o sistema também reduz a dependência de observações humanas tardias e imprecisas.
+
+Quanto ao futuro do projeto, espera-se que a solução possa ser escalada para atender múltiplas residências, com melhorias na inteligência de detecção, integração com sistemas de automação residencial e uso de painéis gráficos mais detalhados para facilitar a análise de dados históricos. A arquitetura modular e a utilização de tecnologias abertas favorecem a continuidade do desenvolvimento e a personalização da solução para diferentes contextos.

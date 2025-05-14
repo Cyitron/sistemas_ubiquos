@@ -21,3 +21,19 @@ A proposta é relevante enquanto o desperdício de água continuar sendo uma pre
 
 ### 3.3 Potenciais Impactos Sociais, Econômicos e Técnicos
 O sistema proposto possui impactos positivos diretos. Do ponto de vista ambiental, contribui com a preservação da água ao evitar desperdícios prolongados. No aspecto econômico, proporciona economia financeira aos usuários ao evitar cobranças indevidas por consumo excessivo causado por vazamentos ocultos. Tecnologicamente, o projeto oferece uma ferramenta que facilita a identificação da necessidade de manutenção especializada, evitando danos maiores e prolongados na infraestrutura hidráulica das residências.
+
+## 4. Descrição da Proposta
+
+### 4.1 Detalhamento da Solução Proposta
+O sistema será composto por um sensor de vazão instalado na tubulação principal de água, na entrada das residências. Esse sensor será responsável por medir continuamente o fluxo de água e enviar os dados coletados via conexão Wi-Fi para a plataforma de monitoramento Zabbix. A visualização dos dados será feita em tempo real, permitindo o acompanhamento constante do consumo de água. Caso o sistema detecte um volume de água anormal em determinado intervalo de tempo — sugerindo um possível vazamento — um alerta será gerado na plataforma. Além disso, haverá a possibilidade de interromper remotamente o fornecimento de água por meio do acionamento de uma trava mecânica, evitando maiores prejuízos.
+
+### 4.2 Principais Funcionalidades
+- Medição contínua do fluxo de água na tubulação de entrada da residência.  
+- Envio e exibição dos dados em tempo real em uma plataforma web (Zabbix).  
+- Geração de alertas quando os dados indicarem consumo anômalo.  
+- Possibilidade de interrupção remota do fornecimento de água.
+
+### 4.3 Abordagem e Tecnologias Utilizadas
+- **Hardware:** ESP32, sensor de fluxo YF-403  
+- **Software (Backend):** Linguagem C utilizando o ambiente de desenvolvimento Arduino IDE  
+- **Interface Web (Frontend):** Plataforma Zabbix para exibição dos dados e gerenciamento de alertas

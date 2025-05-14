@@ -37,3 +37,20 @@ O sistema será composto por um sensor de vazão instalado na tubulação princi
 - **Hardware:** ESP32, sensor de fluxo YF-403  
 - **Software (Backend):** Linguagem C utilizando o ambiente de desenvolvimento Arduino IDE  
 - **Interface Web (Frontend):** Plataforma Zabbix para exibição dos dados e gerenciamento de alertas
+
+## 5. Requisitos
+
+### 5.1 Requisitos Funcionais
+A seguir, são listadas as funcionalidades essenciais que o sistema deverá oferecer:
+
+- Medir continuamente o volume de água que passa pela tubulação a cada segundo.
+- Enviar e disponibilizar os dados coletados na plataforma de monitoramento Zabbix.
+- Gerar alertas automáticos, em qualquer horário do dia, quando houver consumo de água além do esperado.
+- Permitir a interrupção remota do fornecimento de água a qualquer momento por meio da plataforma web.
+
+### 5.2 Requisitos Não Funcionais
+
+- **Desempenho:** O sistema deve operar em tempo real, garantindo alta disponibilidade para leitura e transmissão dos dados.
+- **Escalabilidade:** A arquitetura deve suportar a adição de novos sensores e o monitoramento de múltiplas residências sem perda de desempenho.
+- **Confiabilidade:** Os alertas devem ser emitidos apenas em situações que realmente indiquem comportamento anômalo, minimizando falsos positivos.
+- **Manutenibilidade:** O sistema deve ser projetado de forma modular e clara, facilitando atualizações e correções futuras.

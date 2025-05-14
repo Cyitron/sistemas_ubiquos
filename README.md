@@ -57,7 +57,7 @@ A seguir, são listadas as funcionalidades essenciais que o sistema deverá ofer
 
 ## 6. Diagrama de Comunicação
 
-O diagrama a seguir representa o fluxo de dados e a comunicação entre os componentes do sistema, incluindo o sensor de vazão, o microcontrolador ESP32, a rede Wi-Fi e a plataforma de monitoramento Zabbix.
+O diagrama a seguir representa o fluxo de dados e a comunicação entre os componentes do sistema, incluindo o sensor de vazão, o microcontrolador ESP32, a plataforma de monitoramento Zabbix e a válvula solenóide.
 
 ![Diagrama de Comunicação](./imgs/diagramaUbiquosComunicacao.png)
 

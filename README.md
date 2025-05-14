@@ -72,3 +72,31 @@ O diagrama a seguir representa o fluxo de dados e a comunicação entre os compo
 ## 7. Diagrama elétrico
 
 ![Diagrama Elétrico](./imgs/EsquemaEletricoUbiquos.png).
+
+## 8. Metodologia de Desenvolvimento
+
+O desenvolvimento do sistema será dividido em etapas sequenciais, permitindo validações constantes e entregas incrementais. A seguir, estão descritas as principais fases do projeto:
+
+- **Levantamento de Requisitos e Definição do Escopo:**
+  Identificação das necessidades do usuário, funcionalidades essenciais e limites do projeto.
+
+- **Montagem do Protótipo de Hardware:**
+  Instalação e testes do sensor de fluxo YF-403 com o microcontrolador ESP32, garantindo leituras confiáveis.
+
+- **Programação do ESP32:**
+  Desenvolvimento do firmware em C, utilizando a IDE Arduino para configurar o sensor, realizar as leituras e transmitir os dados via Wi-Fi.
+
+- **Integração com a Plataforma Zabbix:**
+  Configuração dos agentes e templates no Zabbix para receber, armazenar e exibir os dados capturados em tempo real.
+
+- **Implementação de Alertas:**
+  Definição de limiares de consumo para disparo automático de alertas e testes de confiabilidade desses alertas.
+
+- **Teste de Atuação Remota:**
+  Desenvolvimento e validação de um sistema remoto para controle de um atuador (como uma válvula elétrica) para interrupção do fornecimento de água.
+
+- **Testes e Validação do Sistema:**
+  Execução de testes em cenários controlados e ajustes para garantir robustez, sensibilidade adequada e baixo índice de falsos positivos.
+
+- **Documentação e Entrega Final:**
+  Elaboração de documentação técnica e orientações de uso do sistema.

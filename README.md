@@ -54,3 +54,17 @@ A seguir, são listadas as funcionalidades essenciais que o sistema deverá ofer
 - **Escalabilidade:** A arquitetura deve suportar a adição de novos sensores e o monitoramento de múltiplas residências sem perda de desempenho.
 - **Confiabilidade:** Os alertas devem ser emitidos apenas em situações que realmente indiquem comportamento anômalo, minimizando falsos positivos.
 - **Manutenibilidade:** O sistema deve ser projetado de forma modular e clara, facilitando atualizações e correções futuras.
+
+## 6. Diagrama de Comunicação
+
+O diagrama a seguir representa o fluxo de dados e a comunicação entre os componentes do sistema, incluindo o sensor de vazão, o microcontrolador ESP32, a rede Wi-Fi e a plataforma de monitoramento Zabbix.
+
+![Diagrama de Comunicação](./imgs/diagramaUbiquosComunicacao.png)
+
+### Descrição dos Componentes
+
+- **Sensor de Vazão YF-403:** Responsável por medir a quantidade de água que passa pela tubulação.
+- **ESP32:** Microcontrolador que lê os dados do sensor e os transmite via Wi-Fi.
+- **Rede Wi-Fi:** Canal de comunicação entre o ESP32 e a internet.
+- **Plataforma Zabbix:** Interface web para visualização em tempo real, geração de alertas e controle remoto do sistema.
+- **Válvula Solenóide:** Componente responsavel por interromper e permitir a passagem do fluxo d'água.

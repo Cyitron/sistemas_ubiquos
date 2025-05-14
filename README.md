@@ -100,3 +100,27 @@ O desenvolvimento do sistema será dividido em etapas sequenciais, permitindo va
 
 - **Documentação e Entrega Final:**
   Elaboração de documentação técnica e orientações de uso do sistema.
+
+## 9. Resultados Esperados
+
+Ao final do desenvolvimento, espera-se que o sistema esteja plenamente funcional, sendo capaz de monitorar em tempo real o fluxo de água na tubulação principal de uma residência e identificar padrões de consumo anômalos que indiquem a existência de vazamentos.
+
+Entre os principais resultados esperados, destacam-se:
+
+- **Monitoramento contínuo e remoto:** leitura e transmissão dos dados de fluxo de água em tempo real por meio da plataforma Zabbix.
+- **Detecção automatizada de vazamentos:** identificação de consumo excessivo fora de horários comuns ou em ausência de moradores, gerando alertas automáticos.
+- **Capacidade de atuação remota:** acionamento de um mecanismo para interrupção do fornecimento de água, minimizando o desperdício até a resolução do problema.
+- **Facilidade de visualização dos dados:** uso de uma plataforma web robusta para análise dos dados coletados e acompanhamento histórico do consumo.
+
+### Impactos Esperados
+
+- **Ambiental:** redução no desperdício de água potável ao permitir respostas rápidas a vazamentos.
+- **Econômico:** diminuição de custos com contas de água elevadas devido a vazamentos não percebidos.
+- **Operacional:** menor necessidade de inspeções presenciais ou intervenções tardias por parte dos usuários, principalmente em residências que permanecem longos períodos desocupadas.
+
+### Benefícios e Possíveis Melhorias Futuras
+
+- Expansão do sistema para múltiplos pontos de medição dentro de uma residência.
+- Integração com outros sistemas de automação residencial (smart home).
+- Aplicação do modelo em condomínios, com suporte a múltiplas unidades habitacionais.
+- Melhoria na precisão dos alertas utilizando aprendizado de máquina para identificar padrões específicos de uso.

@@ -68,3 +68,7 @@ O diagrama a seguir representa o fluxo de dados e a comunicação entre os compo
 - **Rede Wi-Fi:** Canal de comunicação entre o ESP32 e a internet.
 - **Plataforma Zabbix:** Interface web para visualização em tempo real, geração de alertas e controle remoto do sistema.
 - **Válvula Solenóide:** Componente responsavel por interromper e permitir a passagem do fluxo d'água.
+
+## 7. Diagrama elétrico
+
+![Diagrama Elétrico].(./imgs/EsquemaEletricoUbiquos.drawio.png).

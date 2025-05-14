@@ -71,4 +71,4 @@ O diagrama a seguir representa o fluxo de dados e a comunicação entre os compo
 
 ## 7. Diagrama elétrico
 
-![Diagrama Elétrico](./imgs/EsquemaEletricoUbiquos.drawio.png).
+![Diagrama Elétrico](./imgs/EsquemaEletricoUbiquos.png).

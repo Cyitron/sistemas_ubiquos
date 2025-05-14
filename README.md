@@ -34,7 +34,7 @@ O sistema será composto por um sensor de vazão instalado na tubulação princi
 - Possibilidade de interrupção remota do fornecimento de água.
 
 ### 4.3 Abordagem e Tecnologias Utilizadas
-- **Hardware:** ESP32, sensor de fluxo YF-403  
+- **Hardware:** ESP32, sensor de fluxo YF-403, válvula solenóide 12v, 2 polegadas  
 - **Software (Backend):** Linguagem C utilizando o ambiente de desenvolvimento Arduino IDE  
 - **Interface Web (Frontend):** Plataforma Zabbix para exibição dos dados e gerenciamento de alertas
 

@@ -1,111 +1,130 @@
-#include <WiFi.h>
-#include <HTTPClient.h>
+#include <WiFi.h>             // Biblioteca para conexão Wi-Fi
+#include <HTTPClient.h>       // Biblioteca para envio de requisições HTTP
 
-/* WiFi settings */
-const char* ssid     = "Galaxya30sgabriel";
-const char* password = "iham8066";
+// =================== CONFIGURAÇÕES ===================
 
-/* ThingSpeak settings */
-const char* server = "api.thingspeak.com";
-const char* apiKey = APIKEY;
+// Dados da rede Wi-Fi
+const char* ssid     = "INTERNETNAME";      // Substitua pelo nome da sua rede Wi-Fi
+const char* password = "INTERNETPASSWORD";  // Substitua pela senha da sua rede Wi-Fi
 
-#define SENSOR_PIN   15
-#define RELE_PIN      4
+// Configurações do ThingSpeak
+const char* server = "api.thingspeak.com";  // Endereço do servidor ThingSpeak
+const char* apiKey = "APIKEY";              // Chave de API fornecida pelo ThingSpeak
 
-const float pulsesPerLiter    = 500;     // Ajustar após calibração real
-const unsigned long debounceMicros = 5000;
-const float thresholdFlowRate = 66.0;
+// Definições de hardware
+#define SENSOR_PIN   15     // Pino digital do ESP32 conectado ao sinal do sensor de fluxo
+#define RELE_PIN      4     // Pino digital conectado ao relé
 
-volatile unsigned long pulseCount      = 0;
-volatile unsigned long lastPulseMicros = 0;
+// Constantes do sensor
+const float pulsesPerLiter    = 500.0;   // Pulsos por litro (definido pelo modelo do sensor, ajustar após calibração)
+const unsigned long debounceMicros = 5000; // Debounce para ignorar pulsos falsos (5ms)
+const float ThreshHold = 100.0;    // Limiar de vazão para acionar o relé (em L totais)
 
-unsigned long lastReportMillis = 0;
+// Variáveis compartilhadas entre interrupção e loop principal
+volatile unsigned long pulseCount      = 0;    // Contador de pulsos acumulados
+volatile unsigned long lastPulseMicros = 0;    // Marca de tempo do último pulso válido
 
+// Variáveis auxiliares para controle de tempo e medições
+unsigned long lastReportMillis = 0;           // Última vez que o ThingSpeak foi atualizado
+
+// =================== INTERRUPÇÃO ===================
+
+// Função de interrupção para contar pulsos do sensor
 void IRAM_ATTR pulseCounter() {
-  unsigned long now = micros();
-  if (now - lastPulseMicros >= debounceMicros) {
-    pulseCount++;
-    lastPulseMicros = now;
+  unsigned long now = micros();                            // Captura o tempo atual em microssegundos
+  if (now - lastPulseMicros >= debounceMicros) {           // Verifica se o tempo desde o último pulso é suficiente
+    pulseCount++;                                           // Incrementa o contador de pulsos válidos
+    lastPulseMicros = now;                                 // Atualiza o tempo do último pulso
   }
 }
 
+// =================== SETUP ===================
+
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);                                    // Inicializa comunicação serial
 
-  pinMode(SENSOR_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), pulseCounter, RISING);
+  pinMode(SENSOR_PIN, INPUT_PULLUP);                       // Define o pino do sensor como entrada com pull-up
+  attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), pulseCounter, RISING); // Configura interrupção no sinal do sensor
 
-  pinMode(RELE_PIN, OUTPUT);
-  digitalWrite(RELE_PIN, HIGH);
+  pinMode(RELE_PIN, OUTPUT);                               // Define pino do relé como saída
+  digitalWrite(RELE_PIN, HIGH);                            // Inicialmente o relé está desligado (depende da lógica do relé)
 
+  // Conexão Wi-Fi
   WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi");
+  Serial.print("Conectando ao Wi-Fi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWiFi connected!");
+  Serial.println("\nWi-Fi conectado!");
 }
 
+// =================== LOOP PRINCIPAL ===================
+
 void loop() {
-  // 1) Leitura da Serial em "tempo real"
+  // 1) Controle manual via Serial (teclando A ou D)
   if (Serial.available() > 0) {
-    char cmd = Serial.read();
+    char cmd = Serial.read();                            // Lê comando recebido pela porta serial
     if (cmd == 'A') {
-      digitalWrite(RELE_PIN, HIGH);
+      digitalWrite(RELE_PIN, HIGH);                      // Liga o relé
       Serial.println("Relé LIGADO");
-    }
-    else if (cmd == 'D') {
-      digitalWrite(RELE_PIN, LOW);
+    } else if (cmd == 'D') {
+      digitalWrite(RELE_PIN, LOW);                       // Desliga o relé
       Serial.println("Relé DESLIGADO");
     }
   }
 
-  // 2) Envio ao ThingSpeak a cada 10 s
+  // 2) Envio ao ThingSpeak a cada 10 segundos
   unsigned long now = millis();
-  if (now - lastReportMillis >= 10000) {
-    // suspende interrupção para leitura segura dos pulsos
+  if (now - lastReportMillis >= 10000) { // 10.000 ms = 10 s
+
+    // Desativa interrupções temporariamente para leitura segura dos pulsos
     detachInterrupt(digitalPinToInterrupt(SENSOR_PIN));
 
-    // calcula vazão e volume
-    float flowRate    = (pulseCount / pulsesPerLiter) * 60.0;  // L/min
-    static float totalLitres = 0;
-    totalLitres      += pulseCount / pulsesPerLiter;
+    // Cálculo da vazão: (pulsos / pulses por litro) * 60 para obter L/min
+    float flowRate = (pulseCount / pulsesPerLiter) * 60.0;
 
-    // Aplica um limiar mínimo para ruído (opcional)
+    // Acumula o volume total lido (litros)
+    static float totalLitres = 0;
+    totalLitres += pulseCount / pulsesPerLiter;
+
+    // Aplica limiar mínimo para ignorar ruído
     if (flowRate < 0.1) flowRate = 0;
 
-    // Aciona o relé se ultrapassar o limite configurado
-    if (flowRate >= thresholdFlowRate) {
-      digitalWrite(RELE_PIN, HIGH);
+    // Ação automática no relé com base no fluxo
+    if (totalLitres >= ThreshHold) {
+      digitalWrite(RELE_PIN, HIGH);                      // Liga o relé (vazão anormal)
       Serial.println("Limiar atingido! Relé LIGADO");
     } else {
-      digitalWrite(RELE_PIN, LOW);
+      digitalWrite(RELE_PIN, LOW);                       // Desliga o relé (uso normal)
       Serial.println("Abaixo do limiar. Relé DESLIGADO");
     }
 
-    // debug serial
-    Serial.printf("Flow rate: %.2f L/min  |  Total: %.3f L\n", flowRate, totalLitres);
+    // Imprime no monitor serial os dados
+    Serial.printf("Vazão: %.2f L/min  |  Volume Total: %.3f L\n", flowRate, totalLitres);
 
-    // monta URL e envia
+    // Monta a URL de envio ao ThingSpeak com os dados nos campos 1 e 2
     String url = String("http://") + server +
                  "/update?api_key=" + apiKey +
                  "&field1=" + String(flowRate, 2) +
                  "&field2=" + String(totalLitres, 3);
 
+    // Envia os dados via HTTP GET
     if (WiFi.status() == WL_CONNECTED) {
       HTTPClient http;
-      http.begin(url);
-      int code = http.GET();
-      Serial.printf("ThingSpeak HTTP code: %d\n", code);
-      http.end();
+      http.begin(url);                    // Prepara a requisição
+      int code = http.GET();             // Envia a requisição GET
+      Serial.printf("ThingSpeak HTTP code: %d\n", code); // Mostra resposta (200 = sucesso)
+      http.end();                        // Encerra conexão
     } else {
-      Serial.println("WiFi desconectado, pulando envio");
+      Serial.println("Wi-Fi desconectado, pulando envio");
     }
 
-    // reseta o contador e reativa a interrupção
+    // Reseta o contador de pulsos para próxima medição
     pulseCount = 0;
     lastReportMillis = now;
+
+    // Reativa interrupções
     attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), pulseCounter, RISING);
   }
 }

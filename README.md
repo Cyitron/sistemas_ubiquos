@@ -25,18 +25,18 @@ O sistema proposto possui impactos positivos diretos. Do ponto de vista ambienta
 ## 4. Descrição da Proposta
 
 ### 4.1 Detalhamento da Solução Proposta
-O sistema será composto por um sensor de vazão instalado na tubulação principal de água, na entrada das residências. Esse sensor será responsável por medir continuamente o fluxo de água e enviar os dados coletados via conexão Wi-Fi para a plataforma de monitoramento Zabbix. A visualização dos dados será feita em tempo real, permitindo o acompanhamento constante do consumo de água. Caso o sistema detecte um volume de água anormal em determinado intervalo de tempo — sugerindo um possível vazamento — um alerta será gerado na plataforma. Além disso, haverá a possibilidade de interromper remotamente o fornecimento de água por meio do acionamento de uma trava mecânica, evitando maiores prejuízos.
+O sistema será composto por um sensor de vazão instalado na tubulação principal de água, na entrada das residências. Esse sensor será responsável por medir continuamente o fluxo de água e enviar os dados coletados via conexão Wi-Fi para a plataforma de monitoramento ThingSpeak. A visualização dos dados será feita em tempo real, permitindo o acompanhamento constante do consumo de água. Caso o sistema detecte um volume de água anormal em determinado intervalo de tempo — sugerindo um possível vazamento — um alerta será gerado na plataforma. Além disso, haverá a possibilidade de interromper remotamente o fornecimento de água por meio do acionamento de uma trava mecânica, evitando maiores prejuízos.
 
 ### 4.2 Principais Funcionalidades
 - Medição contínua do fluxo de água na tubulação de entrada da residência.  
-- Envio e exibição dos dados em tempo real em uma plataforma web (Zabbix).  
+- Envio e exibição dos dados em tempo real em uma plataforma web (ThingSpeak).  
 - Geração de alertas quando os dados indicarem consumo anômalo.  
 - Possibilidade de interrupção remota do fornecimento de água.
 
 ### 4.3 Abordagem e Tecnologias Utilizadas
 - **Hardware:** ESP32, sensor de fluxo YF-403, válvula solenóide 12v, 2 polegadas  
 - **Software (Backend):** Linguagem C utilizando o ambiente de desenvolvimento Arduino IDE  
-- **Interface Web (Frontend):** Plataforma Zabbix para exibição dos dados e gerenciamento de alertas
+- **Interface Web (Frontend):** Plataforma ThingSpeak para exibição dos dados
 
 ## 5. Requisitos
 
@@ -44,7 +44,7 @@ O sistema será composto por um sensor de vazão instalado na tubulação princi
 A seguir, são listadas as funcionalidades essenciais que o sistema deverá oferecer:
 
 - Medir continuamente o volume de água que passa pela tubulação a cada segundo.
-- Enviar e disponibilizar os dados coletados na plataforma de monitoramento Zabbix.
+- Enviar e disponibilizar os dados coletados na plataforma de monitoramento ThingSpeak.
 - Gerar alertas automáticos, em qualquer horário do dia, quando houver consumo de água além do esperado.
 - Permitir a interrupção remota do fornecimento de água a qualquer momento por meio da plataforma web.
 
@@ -57,7 +57,7 @@ A seguir, são listadas as funcionalidades essenciais que o sistema deverá ofer
 
 ## 6. Diagrama de Comunicação
 
-O diagrama a seguir representa o fluxo de dados e a comunicação entre os componentes do sistema, incluindo o sensor de vazão, o microcontrolador ESP32, a plataforma de monitoramento Zabbix e a válvula solenóide.
+O diagrama a seguir representa o fluxo de dados e a comunicação entre os componentes do sistema, incluindo o sensor de vazão, o microcontrolador ESP32, a plataforma de monitoramento ThingSpeak e a válvula solenóide.
 
 ![Diagrama de Comunicação](./imgs/diagramaUbiquosComunicacao.png)
 
@@ -66,7 +66,7 @@ O diagrama a seguir representa o fluxo de dados e a comunicação entre os compo
 - **Sensor de Vazão YF-403:** Responsável por medir a quantidade de água que passa pela tubulação.
 - **ESP32:** Microcontrolador que lê os dados do sensor e os transmite via Wi-Fi.
 - **Rede Wi-Fi:** Canal de comunicação entre o ESP32 e a internet.
-- **Plataforma Zabbix:** Interface web para visualização em tempo real, geração de alertas e controle remoto do sistema.
+- **Plataforma ThingSpeak:** Interface web para visualização em tempo real, geração de alertas e controle remoto do sistema.
 - **Válvula Solenóide:** Componente responsavel por interromper e permitir a passagem do fluxo d'água.
 
 ## 7. Diagrama elétrico
@@ -86,8 +86,8 @@ O desenvolvimento do sistema será dividido em etapas sequenciais, permitindo va
 - **Programação do ESP32:**
   Desenvolvimento do firmware em C, utilizando a IDE Arduino para configurar o sensor, realizar as leituras e transmitir os dados via Wi-Fi.
 
-- **Integração com a Plataforma Zabbix:**
-  Configuração dos agentes e templates no Zabbix para receber, armazenar e exibir os dados capturados em tempo real.
+- **Integração com a Plataforma ThingSpeak:**
+  Configuração dos agentes e templates no ThingSpeak para receber, armazenar e exibir os dados capturados em tempo real.
 
 - **Implementação de Alertas:**
   Definição de limiares de consumo para disparo automático de alertas e testes de confiabilidade desses alertas.
@@ -107,7 +107,7 @@ Ao final do desenvolvimento, espera-se que o sistema esteja plenamente funcional
 
 Entre os principais resultados esperados, destacam-se:
 
-- **Monitoramento contínuo e remoto:** leitura e transmissão dos dados de fluxo de água em tempo real por meio da plataforma Zabbix.
+- **Monitoramento contínuo e remoto:** leitura e transmissão dos dados de fluxo de água em tempo real por meio da plataforma ThingSpeak.
 - **Detecção automatizada de vazamentos:** identificação de consumo excessivo fora de horários comuns ou em ausência de moradores, gerando alertas automáticos.
 - **Capacidade de atuação remota:** acionamento de um mecanismo para interrupção do fornecimento de água, minimizando o desperdício até a resolução do problema.
 - **Facilidade de visualização dos dados:** uso de uma plataforma web robusta para análise dos dados coletados e acompanhamento histórico do consumo.
@@ -127,7 +127,7 @@ Entre os principais resultados esperados, destacam-se:
 
 ## 10. Conclusão
 
-Este projeto propõe o desenvolvimento de um sistema de monitoramento de fluxo d'água com foco na detecção precoce de vazamentos na entrada da rede de fornecimento de residências. Utilizando um sensor de vazão integrado ao microcontrolador ESP32 e conectado à plataforma Zabbix, o sistema visa oferecer monitoramento em tempo real, emissão de alertas automáticos e, eventualmente, a capacidade de interromper remotamente o fornecimento de água, prevenindo desperdícios e prejuízos.
+Este projeto propõe o desenvolvimento de um sistema de monitoramento de fluxo d'água com foco na detecção precoce de vazamentos na entrada da rede de fornecimento de residências. Utilizando um sensor de vazão integrado ao microcontrolador ESP32 e conectado à plataforma ThingSpeak, o sistema visa oferecer monitoramento em tempo real, emissão de alertas automáticos e, eventualmente, a capacidade de interromper remotamente o fornecimento de água, prevenindo desperdícios e prejuízos.
 
 A importância do projeto se destaca em contextos onde o acesso imediato à residência não é possível, como casas de veraneio, e onde o desperdício de água pode resultar em custos elevados e danos ao meio ambiente. Ao automatizar o processo de detecção de vazamentos, o sistema também reduz a dependência de observações humanas tardias e imprecisas.
 

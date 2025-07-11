@@ -71,7 +71,7 @@ O diagrama a seguir representa o fluxo de dados e a comunicação entre os compo
 
 ## 7. Diagrama elétrico
 
-![Diagrama Elétrico](./imgs/EsquemaEletricoUbiquos.png).
+![Diagrama Elétrico](./imgs/schematicHighLevel.png).
 
 ## 8. Metodologia de Desenvolvimento
 
@@ -132,3 +132,7 @@ Este projeto propõe o desenvolvimento de um sistema de monitoramento de fluxo d
 A importância do projeto se destaca em contextos onde o acesso imediato à residência não é possível, como casas de veraneio, e onde o desperdício de água pode resultar em custos elevados e danos ao meio ambiente. Ao automatizar o processo de detecção de vazamentos, o sistema também reduz a dependência de observações humanas tardias e imprecisas.
 
 Quanto ao futuro do projeto, espera-se que a solução possa ser escalada para atender múltiplas residências, com melhorias na inteligência de detecção, integração com sistemas de automação residencial e uso de painéis gráficos mais detalhados para facilitar a análise de dados históricos. A arquitetura modular e a utilização de tecnologias abertas favorecem a continuidade do desenvolvimento e a personalização da solução para diferentes contextos.
+
+## 11. Documentação
+
+O código desenvolvido se encontra na pasta [water_flow](water_flow/) junto com sua documentação.

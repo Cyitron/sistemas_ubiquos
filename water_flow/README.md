@@ -14,8 +14,8 @@ Este projeto utiliza um ESP32 para monitorar a vazão de água por meio de um se
 - `apiKey`: Chave de API do seu canal ThingSpeak.
 - `SENSOR_PIN`: Pino conectado ao sensor de vazão.
 - `RELE_PIN`: Pino conectado ao relé.
-- `pulsesPerLiter`: Define quantos pulsos equivalem a 1 litro, baseado no modelo do sensor.
-- `debounceMicros`: Tempo mínimo entre pulsos para evitar contagens falsas por ruído.
+- `pulsesPerLiter`: Define quantos pulsos equivalem a 1 litro, baseado no modelo do sensor. Deve se olhar para o datasheet, porém para esse modelo não me pareceu muito confiavel, exige testes reais com volume de água controlado para calibragem real.
+- `debounceMicros`: Tempo mínimo entre pulsos para evitar contagens falsas por ruído. Esse valor varia muito dependendo de qual sensor você pega e de qual projeto tem na internet, pode variar de 0 até 5000, mas recomendo deixar baixo caso tenha um resistor pullup externo.
 - `ThreshHold`: Volume em litros que, ao ser atingido, aciona o relé automaticamente.
 
 ## Variáveis Importantes
@@ -33,6 +33,7 @@ A função `pulseCounter()` é chamada automaticamente a cada pulso detectado no
 
 - Inicializa a comunicação serial.
 - Configura os pinos do sensor e do relé.
+- O pino do sensor é configurado com pullup de software, porém nos projetos da internet e nas documentações recomendam um pullup externo com um resistor de 10komhs para garantir que não haverá interferencia no sensor, pois é muito sensível.
 - Estabelece conexão com o Wi-Fi.
 - Ativa a interrupção no pino do sensor.
 

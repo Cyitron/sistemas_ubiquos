@@ -71,7 +71,7 @@ O diagrama a seguir representa o fluxo de dados e a comunicação entre os compo
 
 ## 7. Diagrama elétrico
 
-![Diagrama Elétrico](./imgs/schematicHighLevel.png).
+![Diagrama Elétrico](./imgs/schematicHighLevel.png)
 
 ## 8. Metodologia de Desenvolvimento
 
